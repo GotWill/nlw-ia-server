@@ -1,0 +1,43 @@
+#
+GET http://localhost:3333/prompts
+
+###
+
+
+# @name create video
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.mp3"
+Content-Type: audio/mpeg
+
+< ./example.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name create-transcription
+
+POST http://localhost:3333/videos/a9dd22f1-5b88-4e22-bf90-2cf942097ea3/transcription
+Content-Type: application/json
+
+{
+    "prompt": "Nadson o ferinha, Musica boa"
+}
+
+
+###
+
+# @name generate-ai
+
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+    "videoId": "a9dd22f1-5b88-4e22-bf90-2cf942097ea3",
+    "prompt": "Gere um resumo sussinto do video a seguir: '''{transcript}'''",
+    "temperature": 0.5
+
+}
